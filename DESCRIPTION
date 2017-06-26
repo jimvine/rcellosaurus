@@ -1,0 +1,15 @@
+Package: rcellosaurus
+Type: Package
+Title: Cellosaurus for R
+Version: 0.1.0
+Authors@R: person("Jim", "Vine", email = "code@jimvine.co.uk", 
+    role = c("aut", "cre"))
+Description: Provides functions for working with the dataset of cell-lines
+    provided by Cellosaurus. This package is not affiliated with Cellosaurus.
+    Cellosaurus can be found online at: http://web.expasy.org/cellosaurus/
+License: TBC
+Encoding: UTF-8
+LazyData: true
+Imports:
+    xml2
+RoxygenNote: 6.0.1
