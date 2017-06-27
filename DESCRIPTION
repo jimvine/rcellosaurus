@@ -7,7 +7,9 @@ Authors@R: person("Jim", "Vine", email = "code@jimvine.co.uk",
 Description: Provides functions for working with the dataset of cell-lines
     provided by Cellosaurus. This package is not affiliated with Cellosaurus.
     Cellosaurus can be found online at: http://web.expasy.org/cellosaurus/
-License: TBC
+License: AGPL-3
+URL: https://github.com/jimvine/rcellosaurus
+BugReports: https://github.com/jimvine/rcellosaurus/issues
 Encoding: UTF-8
 LazyData: true
 Imports:
