@@ -4,7 +4,7 @@
 
 # Seems to take an age.
 # Not exporting it for now. May not be any use for it.
-load_cellosaurus_list <- function(data) {
+read_cellosaurus_list <- function(data) {
   xml2::as_list(xml2::read_xml(data))
 }
 
@@ -15,34 +15,50 @@ load_cellosaurus_list <- function(data) {
 #' from ftp://ftp.expasy.org/databases/cellosaurus
 #'
 #' @examples
-#' cells <- load_cellosaurus_xml("data/cellosaurus.xml")
-load_cellosaurus <- function(data) {
+#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#'
+#' @export
+#'
+read_cellosaurus_xml <- function(data) {
   xml2::read_xml(data)
 }
 
 
 #' Find cell-line
 #'
+#' @param cellosaurus
+#'   An XML document containing the Cellosaurus dataset.
+#' @param text
+#'   Some text to search for. Finding is handled using XPath so some
+#'   special characters may cause difficulties, including these: '/:[]*.
+#'
 #' @examples
-#' cells <- load_cellosaurus("data/cellosaurus.xml")
-#' cell_line_find_first(cells, "CVCL_3449")
+#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cell_line_find_first(cellosaurus, "CVCL_3449")
 #' # Can store the cell-line for use later.
-#' CVCL_6873 <- cell_line_find_first(cells, "CVCL_6873")
+#' CVCL_6873 <- cell_line_find_first(cellosaurus, "CVCL_6873")
 #'
 #' @export
 #'
-cell_line_find_first <- function(cells, text) {
-  xml2::xml_find_first(cells,
+cell_line_find_first <- function(cellosaurus, text) {
+  xml2::xml_find_first(cellosaurus,
                        paste0(".//*[text()[contains(.,'", text,
                               "')]]/ancestor::cell-line"))
 }
 
+#' Find all matching cell-lines
+#'
+#' @examples
 #' # Finding all the cell-lines that match "sapiens".
 #' # As of Cellosaurus v22.1 (2017-05-17) returned 69593 results.
 #' # Takes a minute or two on a reasonably quick modern laptop.
-# cell_line_find_all(cells, "sapiens")
-cell_line_find_all <- function(cells, text) {
-  xml2::xml_find_all(cells,
+#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cell_line_find_all(cellosaurus, "sapiens")
+#'
+#' @export
+#'
+cell_line_find_all <- function(cellosaurus, text) {
+  xml2::xml_find_all(cellosaurus,
                      paste0(".//*[text()[contains(.,'", text,
                             "')]]/ancestor::cell-line"))
 }
@@ -60,11 +76,13 @@ cell_line_category <- function(cell_line) {
 #' Sex of a cell-line
 #'
 #' @examples
+#' # First read the dataset in.
+#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
 #' # Can call on a nodeset that's already been found. E.g.:
-#' CVCL_E548 <- cell_line_find_first(cells, "CVCL_E548")
+#' CVCL_E548 <- cell_line_find_first(cellosaurus, "CVCL_E548")
 #' cell_line_sex(CVCL_E548)
 #' # Or could nest the sex with the the finder:
-#' cell_line_sex(cell_line_find_first(cells, "CVCL_3449"))
+#' cell_line_sex(cell_line_find_first(cellosaurus, "CVCL_3449"))
 #' @export
 cell_line_sex <- function(cell_line) {
   xml2::xml_attr(cell_line, "sex")
