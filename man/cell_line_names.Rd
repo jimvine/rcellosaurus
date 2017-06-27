@@ -2,22 +2,21 @@
 % Please edit documentation in R/cellosaurus.R
 \name{cell_line_names}
 \alias{cell_line_names}
-\title{Find names from a cell-line}
+\title{Find names from cell-lines}
 \usage{
 cell_line_names(cell_line, type = NULL)
 }
 \arguments{
-\item{cell_line}{A node or nodeset referring to a cell-line.}
+\item{cell_line}{A node or nodeset referring to a cell-line or multiple cell-lines.}
 
-\item{type}{A character vector specifying which types of names to output.
-Expected values are \code{c("identifier", "synonym")}. If \code{NULL},
-the function returns all names (i.e., unfiltered).}
+\item{type}{A character vector specifying which types to output. If \code{NULL},
+the function returns all values (i.e., unfiltered).}
 }
 \value{
 The name(s) associated with the cell-line.
 }
 \description{
-Find names from a cell-line
+Expected values for \code{type} are \code{c("identifier", "synonym")}.
 }
 \examples{
 cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")

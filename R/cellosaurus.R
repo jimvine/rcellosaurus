@@ -265,7 +265,7 @@ cell_line_accessions <- function(cell_line, type = NULL) {
 
 
 
-#' Find names from a cell-line
+#' Find names from cell-lines
 #'
 #' Expected values for \code{type} are \code{c("identifier", "synonym")}.
 #'
@@ -300,8 +300,50 @@ cell_line_names <- function(cell_line, type = NULL) {
 
 }
 
-
-cell_line_comments <- function(cell_line) {
+#' Find comments from cell-lines
+#'
+#' Expected values for \code{category} are
+#' \itemize{
+#'   \item \code{Anecdotal},
+#'   \item \code{Biotechnology},
+#'   \item \code{Breed/subspecies},
+#'   \item \code{Caution},
+#'   \item \code{Characteristics},
+#'   \item \code{Derived from metastatic site},
+#'   \item \code{Derived from sampling site},
+#'   \item \code{Discontinued},
+#'   \item \code{Doubling time},
+#'   \item \code{From},
+#'   \item \code{Group},
+#'   \item \code{Knockout cell},
+#'   \item \code{Microsatellite instability},
+#'   \item \code{Miscellaneous},
+#'   \item \code{Misspelling},
+#'   \item \code{Monoclonal antibody target},
+#'   \item \code{Omics},
+#'   \item \code{Part of},
+#'   \item \code{Population},
+#'   \item \code{Problematic cell line},
+#'   \item \code{Registration},
+#'   \item \code{Selected for resistance to},
+#'   \item \code{Sequence variation},
+#'   \item \code{Transfected with},
+#'   \item \code{Transformant}
+#' }
+#'
+#' @param category
+#'   A character vector specifying which categories to output.
+#' @inheritParams cell_line_accessions
+#'
+#' @return The comment(s) associated with the cell-lines.
+#'
+#' @examples
+#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' mice_lines <- cell_line_find_all(cellosaurus, "Mus musculus")
+#' cell_line_comments(mice_lines, category = "Anecdotal")
+#'
+#' @export
+cell_line_comments <- function(cell_line, category = NULL) {
 
   cell_line_lists(cell_line,
                   attrib = category,
@@ -313,7 +355,19 @@ cell_line_comments <- function(cell_line) {
 
 
 
-cell_line_webpages <- function(cell_line, category = NULL) {
+#' Find web pages from cell-lines
+#'
+#' @inheritParams cell_line_accessions
+#'
+#' @return The web page(s) associated with the cell-lines.
+#'
+#' @examples
+#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' a_line <- cell_line_find_first(cellosaurus, "CVCL_E548")
+#' cell_line_webpages(a_line)
+#'
+#' @export
+cell_line_webpages <- function(cell_line) {
 
   cell_line_lists(cell_line,
                   attrib = NULL,
@@ -323,7 +377,20 @@ cell_line_webpages <- function(cell_line, category = NULL) {
 
 }
 
-
+#' Find references from cell-lines
+#'
+#' @inheritParams cell_line_accessions
+#'
+#' @return
+#'   The resource-internal-ref(s) associated with the cell-lines. These
+#'   relate to the publication-list also stored in the Cellosaurus XML data.
+#'
+#' @examples
+#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' a_line <- cell_line_find_first(cellosaurus, "CVCL_E548")
+#' cell_line_webpages(a_line)
+#'
+#' @export
 cell_line_references <- function(cell_line) {
 
   refs <- cell_line_lists(cell_line,
