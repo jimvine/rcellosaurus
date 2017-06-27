@@ -1,6 +1,6 @@
 # rcellosaurus
 
-The goal of rcellosaurus is to provide some convenience functions for accessing the Cellosaurus dataset in R.
+The goal of rcellosaurus is to provide some convenience functions for accessing the Cellosaurus dataset in R. [http://web.expasy.org/cellosaurus/](Cellosaurus) is a knowledge resource on cell lines. This R package is not associated with Cellosaurus, and the good people at Cellosaurus are not responsible for it in any way.
 
 ## Installation
 
