@@ -32,9 +32,14 @@ read_cellosaurus_xml <- function(data) {
 #'   Some text to search for. Finding is handled using XPath so some
 #'   special characters may cause difficulties, including these: '/:[]*.
 #'
+#' @return An XML node containing a cell-line (or an \code{xml_missing} node if
+#'   the search text is not found). If there are multiple matches, the first
+#'   is returned.
+#'
 #' @examples
 #' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
 #' cell_line_find_first(cellosaurus, "CVCL_3449")
+#'
 #' # Can store the cell-line for use later.
 #' CVCL_6873 <- cell_line_find_first(cellosaurus, "CVCL_6873")
 #'
@@ -47,6 +52,11 @@ cell_line_find_first <- function(cellosaurus, text) {
 }
 
 #' Find all matching cell-lines
+#'
+#' @inheritParams cell_line_find_first
+#'
+#' @return An XML nodeset containing all cell-lines that contain the search
+#'   text. If there are no matches, the nodeset will be empty.
 #'
 #' @examples
 #' # Finding all the cell-lines that match "sapiens".
@@ -65,7 +75,24 @@ cell_line_find_all <- function(cellosaurus, text) {
 
 #' Category of a cell-line
 #'
-#' Use much like cell_line_sex
+#' @inheritParams cell_line_sex
+#'
+#' @return The category attribute associated with the cell-line.
+#'
+#' @examples
+#' # First read the dataset in.
+#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#'
+#' # Can call on a nodeset that's already been found. E.g.:
+#' a_mouse_line <- cell_line_find_first(cellosaurus, "CVCL_IW91")
+#' cell_line_category(a_mouse_line)
+#'
+#' # Works with nodesets containing multiple cell-lines:
+#' mice_lines <- cell_line_find_all(cellosaurus, "Mus musculus")
+#' cell_line_category(mice_lines)
+#'
+#' # Can nest the caetgory function around the the finder function:
+#' cell_line_category(cell_line_find_first(cellosaurus, "CVCL_3449"))
 #'
 #' @export
 #'
@@ -75,14 +102,27 @@ cell_line_category <- function(cell_line) {
 
 #' Sex of a cell-line
 #'
+#' @param cell_line
+#'   A node or nodeset referring to a cell-line.
+#'
+#' @return The sex attribute associated with the cell-line. \code{NA} if
+#'   no sex attribute is present.
+#'
 #' @examples
 #' # First read the dataset in.
 #' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#'
 #' # Can call on a nodeset that's already been found. E.g.:
-#' CVCL_E548 <- cell_line_find_first(cellosaurus, "CVCL_E548")
-#' cell_line_sex(CVCL_E548)
-#' # Or could nest the sex with the the finder:
+#' a_line <- cell_line_find_first(cellosaurus, "CVCL_E548")
+#' cell_line_sex(a_line)
+#'
+#' # Works with nodesets containing multiple cell-lines:
+#' mice_lines <- cell_line_find_all(cellosaurus, "Mus musculus")
+#' cell_line_sex(mice_lines)
+#'
+#' # Can nest the sex function around the the finder function:
 #' cell_line_sex(cell_line_find_first(cellosaurus, "CVCL_3449"))
+#'
 #' @export
 cell_line_sex <- function(cell_line) {
   xml2::xml_attr(cell_line, "sex")
@@ -108,6 +148,50 @@ cell_line_sex <- function(cell_line) {
 cell_line_names_all <- function(cell_line) {
   xml2::xml_find_all(cell_line, "./name-list/name/text()")
 }
+
+
+
+#' Find names from a cell-line
+#'
+#' @param cell_line
+#'   A node or nodeset referring to a cell-line.
+#' @param type
+#'   A character or character vector specifying which types of names to output.
+#'   Expected values are \code{c("identifier", "synonym")}. If \code{NULL},
+#'   reports all names (i.e., unfiltered).
+#'
+#' @return The name(s) associated with the cell-line.
+#'
+#' @example
+#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' a_line <- cell_line_find_first(cellosaurus, "CVCL_E548")
+#'
+#' # If type is not set, returns all names
+#' cell_line_names(a_line)
+#'
+#' # The expected values of type are "identifier" or "synonym":
+#' cell_line_names(a_line, type = "identifier")
+#' cell_line_names(a_line, type = "synonym")
+#'
+#' # Can provide multiple type values as a character vector.
+#' # This should be the same as the unfiltered version:
+#' cell_line_names(a_line, type = c("identifier", "synonym"))
+#'
+#' @export
+cell_line_names <- function(cell_line, type = NULL) {
+  if(is.null(type)) {
+    xpath <- "./name-list/name/text()"
+  } else if(length(type) == 1) {
+    xpath <- paste0("./name-list/name[@type='", type, "']/text()")
+  } else {
+    xpath <- paste0("./name-list/name[@type='",
+                    paste(type, collapse = "' or @type='"),
+                    "']/text()")
+  }
+  xml2::xml_find_all(cell_line, xpath)
+}
+
+
 
 
 #' \code{cell_line_names_identifier} finds the name entries from a
