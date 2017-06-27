@@ -67,7 +67,7 @@ cell_line_find_all <- function(cellosaurus, text) {
 #'
 #' Use much like cell_line_sex
 #'
-#'  @export
+#' @export
 #'
 cell_line_category <- function(cell_line) {
   xml2::xml_attr(cell_line, "category")

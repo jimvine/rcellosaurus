@@ -9,6 +9,3 @@ cell_line_category(cell_line)
 \description{
 Use much like cell_line_sex
 }
-\details{
-@export
-}
