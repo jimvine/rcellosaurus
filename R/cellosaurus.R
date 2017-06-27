@@ -191,9 +191,38 @@ cell_line_sex <- function(cell_line) {
 
 
 
-#' Generic function for extracting lists of items related to cell lines
+#' Template function for extracting lists of items related to cell lines
 #'
-#' Used by functions that gather things that are stored in the XML as lists.
+#' Internal function, used by functions that gather things that are stored in
+#' the XML as lists. Each of these has a particular list container element,
+#' e.g. \code{name-list}, and an object element \code{name}.
+#'
+#' Some (but not all) of the objects support categorisation, e.g. \code{name}s
+#' can be of type \code{"identifier"} or type \code{"synonym"}. Where that is
+#' the case, this function takes both an argument with the category(ies) being
+#' filtered on (\code{attrib}) and the name of the categorisation
+#' (\code{attrib_name}), which is used to form the XPath search term.
+#'
+#' The parameter \code{contents} defines whether to return the contents of the
+#' nodes found (using the XPath code \code{/text()}). In cases where the
+#' relevant information is stored as an attribute of the node rather than as
+#' text within it (e.g. references), we need to return the whole of the nodes,
+#' so specify \code{contents = FALSE}.
+#'
+#' @param cell_line
+#'   A node or nodeset referring to a cell-line or multiple cell-lines.
+#' @param attrib
+#'   A character vector specifying which Types to output. If \code{NULL},
+#'   the function returns all values (i.e., unfiltered).
+#' @param list_element
+#'   The XML element name for the list item
+#' @param item_element
+#'   The XML element name for the objects within the list
+#' @param attrib_name
+#'   The XML attribute name for the categorisation of list items
+#' @param contents
+#'   Whether to report the contents of the list items rather than returning
+#'   the whole of each XML node. See Details.
 #'
 cell_line_lists <- function(cell_line,
                             attrib = NULL,
