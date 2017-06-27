@@ -198,14 +198,78 @@ cell_line_sex <- function(cell_line) {
 
 
 
-#' Find names from a cell-line
+#' Generic function for extracting lists of items related to cell lines
+#'
+#' Used by functions that gather things that are stored in the XML as lists.
+#'
+cell_line_lists <- function(cell_line,
+                            attrib = NULL,
+                            list_element,
+                            item_element,
+                            attrib_name,
+                            contents = TRUE) {
+
+  xpath <- paste0("./", list_element, "/", item_element)
+
+  # if(length(attrib) == 1) {
+  #   xpath <- paste0(xpath,
+  #                   "[@", attrib_name, "='",
+  #                   attrib,
+  #                   "']")
+  #
+  # } else if(length(attrib) > 1) {
+  #   xpath <- paste0(xpath,
+  #                   "[@", attrib_name, "='",
+  #                   paste(attrib,
+  #                         collapse = paste0("' or @", attrib_name, "='")),
+  #                   "']")
+  #
+  # }
+
+  if(!is.null(attrib)) {
+    xpath <- paste0(xpath,
+                    "[@", attrib_name, "='",
+                    paste(attrib,
+                          collapse = paste0("' or @", attrib_name, "='")),
+                    "']")
+  }
+
+  if(contents == TRUE) {
+    xpath <- paste0(xpath, "/text()")
+  }
+
+  xml2::xml_find_all(cell_line, xpath)
+
+}
+
+#' Find accessions from cell-lines
+#'
+#' Expected values for \code{type} are \code{c("primary", "secondary")}.
 #'
 #' @param cell_line
-#'   A node or nodeset referring to a cell-line.
+#'   A node or nodeset referring to a cell-line or multiple cell-lines.
 #' @param type
-#'   A character vector specifying which types of names to output.
-#'   Expected values are \code{c("identifier", "synonym")}. If \code{NULL},
-#'   the function returns all names (i.e., unfiltered).
+#'   A character vector specifying which types to output. If \code{NULL},
+#'   the function returns all values (i.e., unfiltered).
+#'
+#' @export
+cell_line_accessions <- function(cell_line, type = NULL) {
+
+  cell_line_lists(cell_line,
+                  attrib = type,
+                  list_element = "accession-list",
+                  item_element = "accession",
+                  attrib_name = "type")
+
+}
+
+
+
+#' Find names from a cell-line
+#'
+#' Expected values for \code{type} are \code{c("identifier", "synonym")}.
+#'
+#' @inheritParams cell_line_accessions
 #'
 #' @return The name(s) associated with the cell-line.
 #'
@@ -226,14 +290,52 @@ cell_line_sex <- function(cell_line) {
 #'
 #' @export
 cell_line_names <- function(cell_line, type = NULL) {
-  if(is.null(type)) {
-    xpath <- "./name-list/name/text()"
-  } else if(length(type) == 1) {
-    xpath <- paste0("./name-list/name[@type='", type, "']/text()")
-  } else {
-    xpath <- paste0("./name-list/name[@type='",
-                    paste(type, collapse = "' or @type='"),
-                    "']/text()")
-  }
-  xml2::xml_find_all(cell_line, xpath)
+
+  cell_line_lists(cell_line,
+                  attrib = type,
+                  list_element = "name-list",
+                  item_element = "name",
+                  attrib_name = "type")
+
+
 }
+
+
+cell_line_comments <- function(cell_line) {
+
+  cell_line_lists(cell_line,
+                  attrib = category,
+                  list_element = "comment-list",
+                  item_element = "comment",
+                  attrib_name = "category")
+
+}
+
+
+
+cell_line_webpages <- function(cell_line, category = NULL) {
+
+  cell_line_lists(cell_line,
+                  attrib = NULL,
+                  list_element = "web-page-list",
+                  item_element = "url",
+                  attrib_name = NULL)
+
+}
+
+
+cell_line_references <- function(cell_line) {
+
+  refs <- cell_line_lists(cell_line,
+                          attrib = NULL,
+                          list_element = "reference-list",
+                          item_element = "reference",
+                          attrib_name = NULL,
+                          contents = FALSE)
+
+  xml2::xml_attr(refs, "resource-internal-ref")
+
+}
+
+
+
