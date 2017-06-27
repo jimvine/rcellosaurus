@@ -2,13 +2,6 @@
 # Copyright Jim Vine
 
 
-# Seems to take an age.
-# Not exporting it for now. May not be any use for it.
-read_cellosaurus_list <- function(data) {
-  xml2::as_list(xml2::read_xml(data))
-}
-
-
 
 #' rcellosaurus: A package for using the Cellosaurus dataset.
 #'
@@ -210,21 +203,6 @@ cell_line_lists <- function(cell_line,
                             contents = TRUE) {
 
   xpath <- paste0("./", list_element, "/", item_element)
-
-  # if(length(attrib) == 1) {
-  #   xpath <- paste0(xpath,
-  #                   "[@", attrib_name, "='",
-  #                   attrib,
-  #                   "']")
-  #
-  # } else if(length(attrib) > 1) {
-  #   xpath <- paste0(xpath,
-  #                   "[@", attrib_name, "='",
-  #                   paste(attrib,
-  #                         collapse = paste0("' or @", attrib_name, "='")),
-  #                   "']")
-  #
-  # }
 
   if(!is.null(attrib)) {
     xpath <- paste0(xpath,
