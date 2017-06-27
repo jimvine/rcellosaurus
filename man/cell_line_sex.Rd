@@ -6,15 +6,29 @@
 \usage{
 cell_line_sex(cell_line)
 }
+\arguments{
+\item{cell_line}{A node or nodeset referring to a cell-line.}
+}
+\value{
+The sex attribute associated with the cell-line. \code{NA} if
+  no sex attribute is present.
+}
 \description{
 Sex of a cell-line
 }
 \examples{
 # First read the dataset in.
 cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+
 # Can call on a nodeset that's already been found. E.g.:
-CVCL_E548 <- cell_line_find_first(cellosaurus, "CVCL_E548")
-cell_line_sex(CVCL_E548)
-# Or could nest the sex with the the finder:
+a_line <- cell_line_find_first(cellosaurus, "CVCL_E548")
+cell_line_sex(a_line)
+
+# Works with nodesets containing multiple cell-lines:
+mice_lines <- cell_line_find_all(cellosaurus, "Mus musculus")
+cell_line_sex(mice_lines)
+
+# Can nest the sex function around the the finder function:
 cell_line_sex(cell_line_find_first(cellosaurus, "CVCL_3449"))
+
 }

@@ -12,12 +12,18 @@ cell_line_find_first(cellosaurus, text)
 \item{text}{Some text to search for. Finding is handled using XPath so some
 special characters may cause difficulties, including these: '/:[]*.}
 }
+\value{
+An XML node containing a cell-line (or an \code{xml_missing} node if
+  the search text is not found). If there are multiple matches, the first
+  is returned.
+}
 \description{
 Find cell-line
 }
 \examples{
 cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
 cell_line_find_first(cellosaurus, "CVCL_3449")
+
 # Can store the cell-line for use later.
 CVCL_6873 <- cell_line_find_first(cellosaurus, "CVCL_6873")
 

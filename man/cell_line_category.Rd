@@ -6,6 +6,28 @@
 \usage{
 cell_line_category(cell_line)
 }
+\arguments{
+\item{cell_line}{A node or nodeset referring to a cell-line.}
+}
+\value{
+The category attribute associated with the cell-line.
+}
 \description{
-Use much like cell_line_sex
+Category of a cell-line
+}
+\examples{
+# First read the dataset in.
+cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+
+# Can call on a nodeset that's already been found. E.g.:
+a_mouse_line <- cell_line_find_first(cellosaurus, "CVCL_IW91")
+cell_line_category(a_mouse_line)
+
+# Works with nodesets containing multiple cell-lines:
+mice_lines <- cell_line_find_all(cellosaurus, "Mus musculus")
+cell_line_category(mice_lines)
+
+# Can nest the caetgory function around the the finder function:
+cell_line_category(cell_line_find_first(cellosaurus, "CVCL_3449"))
+
 }

@@ -6,6 +6,16 @@
 \usage{
 cell_line_find_all(cellosaurus, text)
 }
+\arguments{
+\item{cellosaurus}{An XML document containing the Cellosaurus dataset.}
+
+\item{text}{Some text to search for. Finding is handled using XPath so some
+special characters may cause difficulties, including these: '/:[]*.}
+}
+\value{
+An XML nodeset containing all cell-lines that contain the search
+  text. If there are no matches, the nodeset will be empty.
+}
 \description{
 Find all matching cell-lines
 }
