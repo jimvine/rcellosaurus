@@ -31,3 +31,10 @@ Or simply nest these functions to get the sex directly:
 ```r
 cell_line_sex(cell_line_find_first(cellosaurus, "CVCL_E548"))
 ```
+
+The `rcellosaurus` package is powered by the `xml2` package, so returned results are typically XML nodes or nodesets that can be further processed using `xml2` if desired.
+
+## References
+
+Bairoch A. The Cellosaurus: a cell line knowledge resource. 
+http://web.expasy.org/cellosaurus/
