@@ -10,7 +10,9 @@ cell_line_find_first(cellosaurus, text)
 \item{cellosaurus}{An XML document containing the Cellosaurus dataset.}
 
 \item{text}{Some text to search for. Finding is handled using XPath so some
-special characters may cause difficulties, including these: '/:[]*.}
+special characters may cause difficulties, including these: '/:[]*.
+Can take a character vector of length > 1, in which case will search for
+any of the terms (i.e., "or").}
 }
 \value{
 An XML node containing a cell-line (or an \code{xml_missing} node if

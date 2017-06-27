@@ -10,7 +10,9 @@ cell_line_find_all(cellosaurus, text)
 \item{cellosaurus}{An XML document containing the Cellosaurus dataset.}
 
 \item{text}{Some text to search for. Finding is handled using XPath so some
-special characters may cause difficulties, including these: '/:[]*.}
+special characters may cause difficulties, including these: '/:[]*.
+Can take a character vector of length > 1, in which case will search for
+any of the terms (i.e., "or").}
 }
 \value{
 An XML nodeset containing all cell-lines that contain the search
@@ -20,10 +22,15 @@ An XML nodeset containing all cell-lines that contain the search
 Find all matching cell-lines
 }
 \examples{
+cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+
 # Finding all the cell-lines that match "sapiens".
 # As of Cellosaurus v22.1 (2017-05-17) returned 69593 results.
 # Takes a minute or two on a reasonably quick modern laptop.
-cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
 cell_line_find_all(cellosaurus, "sapiens")
+
+# Supplying a vector of multiple search terms will do an "or" search:
+two_lines <- cell_line_find_all(cellosaurus, c("CVCL_E548", "CVCL_IW91"))
+two_species <- cell_line_find_all(cellosaurus, c("Mus musculus", "Cavia porcellus"))
 
 }
