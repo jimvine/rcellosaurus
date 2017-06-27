@@ -9,6 +9,43 @@ read_cellosaurus_list <- function(data) {
 }
 
 
+
+#' rcellosaurus: A package for using the Cellosaurus dataset.
+#'
+#' The rcellosaurus provides functions for accessing the Cellosaurus dataset in
+#' R. Cellosaurus is a knowledge resource on cell lines. It is online at
+#' http://web.expasy.org/cellosaurus/
+#'
+#' This R package is not associated with Cellosaurus, and the good people at
+#' Cellosaurus are not responsible for it in any way.
+#'
+#' The rcellosaurus package provides functions in two broad categories:
+#' functions for finding cell-lines that match search terms and functions for
+#' accessing information on those cell-lines. In addition,
+#' \code{\link{read_cellosaurus_xml}} is used to read the Cellosaurus dataset.
+#'
+#' @section Finding cell-lines:
+#' The following functions are provided to find cell-lines:
+#' \itemize{
+#'   \item \code{\link{cell_line_find_first}}, to find one cell-lines
+#'   \item \code{\link{cell_line_find_all}}, to find multiple cell-lines
+#' }
+#'
+#' @section Accessing cell-line information:
+#' The following functions are provided to find cell-lines:
+#' \itemize{
+#'   \item \code{\link{cell_line_category}},
+#'   \item \code{\link{cell_line_sex}},
+#'   \item \code{\link{cell_line_names}},
+#' }
+#'
+#' @docType package
+#' @name rcellosaurus
+NULL
+
+
+
+
 #' Load a Cellosaurus xml dataset
 #'
 #' Cellosaurus publishes its dataset as an XML file, available for download
@@ -23,6 +60,9 @@ read_cellosaurus_xml <- function(data) {
   xml2::read_xml(data)
 }
 
+
+
+# =========== Find cell-lines ===========
 
 #' Find cell-line
 #'
@@ -95,6 +135,10 @@ cell_line_find_all <- function(cellosaurus, text) {
   xml2::xml_find_all(cellosaurus, xpath)
 
 }
+
+
+# =========== Details of cell-lines ===========
+
 
 
 #' Category of a cell-line
