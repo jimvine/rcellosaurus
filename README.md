@@ -2,6 +2,12 @@
 
 The goal of rcellosaurus is to provide some convenience functions for accessing the Cellosaurus dataset in R.
 
+## Installation
+
+```r
+devtools::install_github("jimvine/rcellosaurus")
+```
+
 ## Use
 
 First download the XML version of the Cellosaurus dataset:
