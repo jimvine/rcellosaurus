@@ -132,37 +132,16 @@ cell_line_sex <- function(cell_line) {
 
 #' Find names from a cell-line
 #'
-#' \code{cell_line_names_all} finds the name entries from a
-#' cell-line's name-list. Does not filter based on \code{type} so
-#' may include entries marked as types both \code{identifier} and
-#' \code{synonym}.
-#'
-#' @examples
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
-#' CVCL_E548 <- cell_line_find_first(cellosaurus, "CVCL_E548")
-#' cell_line_names_all(CVCL_E548)
-#' cell_line_names_synonym(CVCL_E548)
-#' cell_line_names_identifier(CVCL_E548)
-#'
-#' @export
-cell_line_names_all <- function(cell_line) {
-  xml2::xml_find_all(cell_line, "./name-list/name/text()")
-}
-
-
-
-#' Find names from a cell-line
-#'
 #' @param cell_line
 #'   A node or nodeset referring to a cell-line.
 #' @param type
-#'   A character or character vector specifying which types of names to output.
+#'   A character vector specifying which types of names to output.
 #'   Expected values are \code{c("identifier", "synonym")}. If \code{NULL},
-#'   reports all names (i.e., unfiltered).
+#'   the function returns all names (i.e., unfiltered).
 #'
 #' @return The name(s) associated with the cell-line.
 #'
-#' @example
+#' @examples
 #' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
 #' a_line <- cell_line_find_first(cellosaurus, "CVCL_E548")
 #'
@@ -190,26 +169,3 @@ cell_line_names <- function(cell_line, type = NULL) {
   }
   xml2::xml_find_all(cell_line, xpath)
 }
-
-
-
-
-#' \code{cell_line_names_identifier} finds the name entries from a
-#' cell-line's name-list, filtered to only include \code{type="identifier"}.
-#' We expect that to only return one element, but do not enforce it.
-#'
-#' @describeIn cell_line_names_all Find identifier name(s) for a cell-line
-#' @export
-cell_line_names_identifier <- function(cell_line) {
-  xml2::xml_find_all(cell_line, "./name-list/name[@type='identifier']/text()")
-}
-
-#' \code{cell_line_names_synonym} finds the name entries from a cell-line's
-#' name-list, filtered to only include \code{type="synonym"}.
-#'
-#' @describeIn cell_line_names_all Find synonym names for a cell-line
-#' @export
-cell_line_names_synonym <- function(cell_line) {
-  xml2::xml_find_all(cell_line, "./name-list/name[@type='synonym']/text()")
-}
-
