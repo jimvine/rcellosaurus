@@ -1,11 +1,6 @@
 
 
 
-cell_lines_all <- function(cellosaurus) {
-  # This also works, but seems slower:
-  # xml2::xml_children(xml2::xml_child(cellosaurus, 2))
-  xml2::xml_find_all(cellosaurus, "./cell-line-list/*")
-}
 
 
 
