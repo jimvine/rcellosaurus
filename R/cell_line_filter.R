@@ -71,7 +71,9 @@
 #'
 #' @examples
 #' # Set up the data
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+#'                                                 "cellosaurus.xml",
+#'                                                 package = "rcellosaurus"))
 #' cell_lines <- cell_lines_all(cellosaurus)
 #'
 #' # Filter for a particular accession number:

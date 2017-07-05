@@ -23,7 +23,9 @@ An XML node containing a cell-line (or an \code{xml_missing} node if
 Find cell-line
 }
 \examples{
-cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+                                                "cellosaurus.xml",
+                                                package = "rcellosaurus"))
 cell_line_find_first(cellosaurus, "CVCL_3449")
 
 # Can store the cell-line for use later.

@@ -6,11 +6,19 @@
 \usage{
 read_cellosaurus_xml(data)
 }
+\arguments{
+\item{data}{A Cellosaurus XML data file}
+}
+\value{
+An XML document object.
+}
 \description{
 Cellosaurus publishes its dataset as an XML file, available for download
 from ftp://ftp.expasy.org/databases/cellosaurus
 }
 \examples{
-cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+                                                "cellosaurus.xml",
+                                                package = "rcellosaurus"))
 
 }

@@ -13,7 +13,9 @@
 #'
 #' @examples
 #' # First read the dataset in.
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+#'                                                 "cellosaurus.xml",
+#'                                                 package = "rcellosaurus"))
 #'
 #' # Can call on a nodeset that's already been found. E.g.:
 #' a_mouse_line <- cell_line_find_first(cellosaurus, "CVCL_IW91")
@@ -41,7 +43,9 @@ cell_line_category <- function(cell_line) {
 #'
 #' @examples
 #' # First read the dataset in.
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+#'                                                 "cellosaurus.xml",
+#'                                                 package = "rcellosaurus"))
 #'
 #' # Can call on a nodeset that's already been found. E.g.:
 #' a_line <- cell_line_find_first(cellosaurus, "CVCL_E548")
@@ -151,7 +155,9 @@ cell_line_accessions <- function(cell_line, type = NULL) {
 #' @return The name(s) associated with the cell-line.
 #'
 #' @examples
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+#'                                                 "cellosaurus.xml",
+#'                                                 package = "rcellosaurus"))
 #' a_line <- cell_line_find_first(cellosaurus, "CVCL_E548")
 #'
 #' # If type is not set, returns all names
@@ -215,7 +221,9 @@ cell_line_names <- function(cell_line, type = NULL) {
 #' @return The comment(s) associated with the cell-lines.
 #'
 #' @examples
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+#'                                                 "cellosaurus.xml",
+#'                                                 package = "rcellosaurus"))
 #' mice_lines <- cell_line_find_all(cellosaurus, "Mus musculus")
 #' cell_line_comments(mice_lines, category = "Anecdotal")
 #'
@@ -239,7 +247,9 @@ cell_line_comments <- function(cell_line, category = NULL) {
 #' @return The web page(s) associated with the cell-lines.
 #'
 #' @examples
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+#'                                                 "cellosaurus.xml",
+#'                                                 package = "rcellosaurus"))
 #' a_line <- cell_line_find_first(cellosaurus, "CVCL_E548")
 #' cell_line_webpages(a_line)
 #'
@@ -263,7 +273,9 @@ cell_line_webpages <- function(cell_line) {
 #'   relate to the publication-list also stored in the Cellosaurus XML data.
 #'
 #' @examples
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+#'                                                 "cellosaurus.xml",
+#'                                                 package = "rcellosaurus"))
 #' a_line <- cell_line_find_first(cellosaurus, "CVCL_E548")
 #' cell_line_webpages(a_line)
 #'

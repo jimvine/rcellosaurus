@@ -22,7 +22,9 @@ An XML nodeset containing all cell-lines that contain the search
 Find all matching cell-lines
 }
 \examples{
-cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+                                                "cellosaurus.xml",
+                                                package = "rcellosaurus"))
 
 # Finding all the cell-lines that match "sapiens".
 # As of Cellosaurus v22.1 (2017-05-17) returned 69593 results.

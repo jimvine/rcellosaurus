@@ -43,8 +43,14 @@ NULL
 #' Cellosaurus publishes its dataset as an XML file, available for download
 #' from ftp://ftp.expasy.org/databases/cellosaurus
 #'
+#' @param data A Cellosaurus XML data file
+#'
+#' @return An XML document object.
+#'
 #' @examples
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+#'                                                 "cellosaurus.xml",
+#'                                                 package = "rcellosaurus"))
 #'
 #' @export
 read_cellosaurus_xml <- function(data) {
@@ -54,7 +60,7 @@ read_cellosaurus_xml <- function(data) {
 
 #' Get all cell-line elements from Cellosaurus xml dataset
 #'
-#' Having read a Cellosaurus dataset with \code{\link{read_cellosaurus_xml()}},
+#' Having read a Cellosaurus dataset with \code{\link{read_cellosaurus_xml}},
 #' this function extracts all the cell-line elements as an \code{xml_nodeset}.
 #'
 #' Once you have used this function, you will typically want to use
@@ -67,7 +73,9 @@ read_cellosaurus_xml <- function(data) {
 #' @return An XML nodeset containing all cell-lines in the dataset.
 #'
 #' @examples
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+#'                                                 "cellosaurus.xml",
+#'                                                 package = "rcellosaurus"))
 #' cell_lines <- cell_lines_all(cellosaurus)
 #'
 #' @export
@@ -95,7 +103,9 @@ cell_lines_all <- function(cellosaurus) {
 #'   is returned.
 #'
 #' @examples
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+#'                                                 "cellosaurus.xml",
+#'                                                 package = "rcellosaurus"))
 #' cell_line_find_first(cellosaurus, "CVCL_3449")
 #'
 #' # Can store the cell-line for use later.
@@ -124,7 +134,9 @@ cell_line_find_first <- function(cellosaurus, text) {
 #'   text. If there are no matches, the nodeset will be empty.
 #'
 #' @examples
-#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cellosaurus <- read_cellosaurus_xml(system.file("extdata",
+#'                                                 "cellosaurus.xml",
+#'                                                 package = "rcellosaurus"))
 #'
 #' # Finding all the cell-lines that match "sapiens".
 #' # As of Cellosaurus v22.1 (2017-05-17) returned 69593 results.
