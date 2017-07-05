@@ -2,7 +2,6 @@
 # Copyright Jim Vine
 
 
-
 #' rcellosaurus: A package for using the Cellosaurus dataset.
 #'
 #' The rcellosaurus provides functions for accessing the Cellosaurus dataset in
@@ -48,13 +47,30 @@ NULL
 #' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
 #'
 #' @export
-#'
 read_cellosaurus_xml <- function(data) {
   xml2::read_xml(data)
 }
 
 
-
+#' Get all cell-line elements from Cellosaurus xml dataset
+#'
+#' Having read a Cellosaurus dataset with \code{\link{read_cellosaurus_xml()}},
+#' this function extracts all the cell-line elements as an \code{xml_nodeset}.
+#'
+#' Once you have used this function, you will typically want to use
+#' \code{\link{cell_lines_filter}} to find the cell-lines that are of interest
+#' to you.
+#'
+#' @param cellosaurus
+#'   An XML document containing the Cellosaurus dataset.
+#'
+#' @return An XML nodeset containing all cell-lines in the dataset.
+#'
+#' @examples
+#' cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+#' cell_lines <- cell_lines_all(cellosaurus)
+#'
+#' @export
 cell_lines_all <- function(cellosaurus) {
   # This also works, but seems slower:
   # xml2::xml_children(xml2::xml_child(cellosaurus, 2))
@@ -86,7 +102,6 @@ cell_lines_all <- function(cellosaurus) {
 #' CVCL_6873 <- cell_line_find_first(cellosaurus, "CVCL_6873")
 #'
 #' @export
-#'
 cell_line_find_first <- function(cellosaurus, text) {
 
   if(length(text) == 1) {
@@ -122,7 +137,6 @@ cell_line_find_first <- function(cellosaurus, text) {
 #'                                                  "Cavia porcellus"))
 #'
 #' @export
-#'
 cell_line_find_all <- function(cellosaurus, text) {
 
   if(length(text) == 1) {

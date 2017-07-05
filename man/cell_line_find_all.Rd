@@ -31,6 +31,7 @@ cell_line_find_all(cellosaurus, "sapiens")
 
 # Supplying a vector of multiple search terms will do an "or" search:
 two_lines <- cell_line_find_all(cellosaurus, c("CVCL_E548", "CVCL_IW91"))
-two_species <- cell_line_find_all(cellosaurus, c("Mus musculus", "Cavia porcellus"))
+two_species <- cell_line_find_all(cellosaurus, c("Mus musculus",
+                                                 "Cavia porcellus"))
 
 }

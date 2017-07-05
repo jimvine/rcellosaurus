@@ -2,9 +2,8 @@
 # Functions for extracting details from cell-lines
 # Copyright Jim Vine
 
+
 # =========== Details of cell-lines ===========
-
-
 
 #' Category of a cell-line
 #'
@@ -28,7 +27,6 @@
 #' cell_line_category(cell_line_find_first(cellosaurus, "CVCL_3449"))
 #'
 #' @export
-#'
 cell_line_category <- function(cell_line) {
   xml2::xml_attr(cell_line, "category")
 }
