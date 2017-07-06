@@ -90,13 +90,28 @@ cell_lines_all <- function(cellosaurus) {
 
 #' Find cell-line
 #'
+#' Simple search function that searches text elements within the Cellosaurus
+#' XML document, to find entries that contain any of the terms provided in
+#' the \code{text} parameter. For greater control, consider using
+#' \code{\link{cell_lines_filter}} instead.
+#'
+#' This function provides a quick way to find matching text, but is constrained
+#' in a couple of important ways. It will only search in text sections of the
+#' XML dataset (i.e., the values between XML tags). This means that it cannot
+#' find anything that Cellosaurus stores in attributes (e.g. \code{sex=''}
+#' entries). Conversely, the function will search in all of the text sections,
+#' without discrimination; it cannot search only in specific sections. For
+#' more advanced control, use the \code{\link{cell_lines_filter}} function,
+#' which has neither of these constraints.
+#'
 #' @param cellosaurus
 #'   An XML document containing the Cellosaurus dataset.
 #' @param text
 #'   Some text to search for. Finding is handled using XPath so some
 #'   special characters may cause difficulties, including these: '/:[]*.
-#'   Can take a character vector of length > 1, in which case will search for
-#'   any of the terms (i.e., "or").
+#'   Can take a string or a character vector of length > 1. If providing a
+#'   vector, the function will search for cell-lines that match any of the
+#'   terms (i.e., "or").
 #'
 #' @return An XML node containing a cell-line (or an \code{xml_missing} node if
 #'   the search text is not found). If there are multiple matches, the first
@@ -127,6 +142,20 @@ cell_line_find_first <- function(cellosaurus, text) {
 }
 
 #' Find all matching cell-lines
+#'
+#' Simple search function that searches text elements within the Cellosaurus
+#' XML document, to find entries that contain any of the terms provided in
+#' the \code{text} parameter. For greater control, consider using
+#' \code{\link{cell_lines_filter}} instead.
+#'
+#' This function provides a quick way to find matching text, but is constrained
+#' in a couple of important ways. It will only search in text sections of the
+#' XML dataset (i.e., the values between XML tags). This means that it cannot
+#' find anything that Cellosaurus stores in attributes (e.g. \code{sex=''}
+#' entries). Conversely, the function will search in all of the text sections,
+#' without discrimination; it cannot search only in specific sections. For
+#' more advanced control, use the \code{\link{cell_lines_filter}} function,
+#' which has neither of these constraints.
 #'
 #' @inheritParams cell_line_find_first
 #'

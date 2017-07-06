@@ -14,22 +14,30 @@ First download the XML version of the Cellosaurus dataset:
 
 ftp://ftp.expasy.org/databases/cellosaurus
 
-Load that into R with `read_cellosaurus_xml()`:
+Load that into R with `read_cellosaurus_xml()` and extract a nodeset containing all the cell-line elements:
 ``` r
 cellosaurus <- read_cellosaurus_xml("data/cellosaurus.xml")
+cell_lines <- cell_lines_all(cellosaurus)
 ```
+(where `data` is the path to the folder where you have stored the downloaded dataset.)
 
 To find a cell-line and identify the sex according to the Cellosaurus record use the following:
 
 ``` r
-CVCL_E548 <- cell_line_find_first(cellosaurus, "CVCL_E548")
+CVCL_E548 <- cell_lines_filter(cell_lines,
+                               filter_by = "accession",
+                               filter_term = "CVCL_E548",
+                               filter_type = "equals")
+
 cell_line_sex(CVCL_E548)
 ```
-
 Or simply nest these functions to get the sex directly:
 
 ```r
-cell_line_sex(cell_line_find_first(cellosaurus, "CVCL_E548"))
+cell_line_sex(cell_lines_filter(cell_lines,
+                                filter_by = "accession",
+                                filter_term = "CVCL_E548",
+                                filter_type = "equals"))
 ```
 
 The `rcellosaurus` package is powered by the `xml2` package, so returned results are typically XML nodes or nodesets that can be further processed using `xml2` if desired.

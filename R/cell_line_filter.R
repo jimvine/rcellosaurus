@@ -42,8 +42,9 @@
 #' For full details of the meanings of these values, see the Cellosaurus
 #' documentation.
 #'
-#' Because \code{filter_term}s are applied as a logical OR, filtering to retain
-#' cell-line elements that match any of the terms, filtering to match two
+#' Because \code{filter_term}s are applied to retain
+#' cell-line elements that match any of the terms (effectively a logical OR),
+#' filtering to find cell lines that match two
 #' (or more) criteria is achieved using two (or more) calls to this function.
 #'
 #' @param cell_lines
@@ -67,7 +68,9 @@
 #'
 #' @return
 #'   An XML nodeset containing the subset of the cell-lines that match the
-#'   filter criteria.
+#'   filter criteria. If no cell-lines match, an empty nodeset will be
+#'   returned. If one cell-line matches, a nodeset with a single node will be
+#'   returned.
 #'
 #' @examples
 #' # Set up the data
