@@ -4,7 +4,7 @@ Title: Cellosaurus for R
 Version: 0.1.0.9000
 Authors@R: person("Jim", "Vine", email = "code@jimvine.co.uk", 
     role = c("aut", "cre"))
-Description: The rcellosaurus package provides functions for working with the 
+Description: Provides functions for working with the 
     dataset of cell-lines provided by Cellosaurus. This package is not 
     affiliated with Cellosaurus. Cellosaurus can be found online at: 
     http://web.expasy.org/cellosaurus/.
